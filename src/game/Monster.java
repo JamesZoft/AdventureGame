@@ -1,0 +1,45 @@
+package game;
+
+import java.util.*;
+
+public class Monster extends AnimateEntity{
+
+	public Monster(String name, int health, int attack, ArrayList<Item> inventory, boolean isAggressive)
+	{
+		this.name = name;
+		this.isAggressive = isAggressive;
+		this.inventory = inventory;
+		this.health = health;
+		this.attack = attack;
+	}
+	public Monster()
+	{
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	@Override
+	public int getHealth()
+	{
+		return health;
+	}
+	
+	@Override
+	public void attacked(int attack)
+	{
+		health -= attack;
+	}
+	
+	
+	@Override
+	public void attack(AnimateEntity e)
+	{
+		System.out.println("The " + this.getName() + " damaged you for " + this.attack + "!");
+		e.attacked(this.attack);
+	}
+
+
+}

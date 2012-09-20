@@ -1,0 +1,18 @@
+package game;
+
+import java.util.*;
+
+public class Trader extends NPC{
+
+	private static Map<String, Integer> shop;
+	
+	public Trader(String name, int health, int attack, ArrayList<Item> inventory, boolean isAggressive)
+	{
+		super(name, health, attack, inventory, isAggressive);
+	}
+	
+	public static Map<String, Integer> getShop()
+	{
+		return shop;
+	}
+}

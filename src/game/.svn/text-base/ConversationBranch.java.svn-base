@@ -1,0 +1,18 @@
+package game;
+
+import java.util.*;
+
+public class ConversationBranch{
+	
+	private String prompt;
+	private AnimateEntity talkee;
+	private String response;
+	private ArrayList<ConversationBranch> branches;
+	
+	public ConversationBranch(String prompt, String response)
+	{
+		branches = new ArrayList<ConversationBranch>();
+		this.prompt = prompt;
+		this.response = response;
+	}
+}

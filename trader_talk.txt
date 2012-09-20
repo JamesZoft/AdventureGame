@@ -1,0 +1,14 @@
+# 1
+Hello how are you?
+Well thank you, traveller
+2 5
+
+# 2
+Do you have anything to tell me about this dungeon?
+Watch out for the monsters!
+5
+
+# 5
+Thank you. Goodbye!
+Farewell, traveller!
+quit

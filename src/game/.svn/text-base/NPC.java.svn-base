@@ -1,0 +1,42 @@
+package game;
+
+import java.util.ArrayList;
+
+public class NPC extends AnimateEntity{
+
+	public NPC(String name, int health, int attack, ArrayList<Item> inventory, boolean isAggressive)
+	{
+		this.name = name;
+		this.health = health;
+		this.attack = attack;
+		this.inventory = inventory;
+		this.isAggressive = isAggressive;
+	}
+	
+	public NPC()
+	{
+		
+	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
+	@Override
+	public void attack(AnimateEntity e) {
+		e.attacked(this.attack);
+		
+	}
+
+	@Override
+	public void attacked(int attack) {
+		health -= attack;		
+	}
+
+}

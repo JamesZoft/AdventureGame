@@ -1,0 +1,64 @@
+package game;
+
+import java.io.FileNotFoundException;
+import java.util.*;
+
+public class RoomFactory {
+	
+	private static ArrayList<String> itemTypes;
+	private static ArrayList<String> animateEntityTypes;
+	
+	public static Room makeRandomRoom() 
+	{
+		itemTypes = new ArrayList<String>();
+		animateEntityTypes = new ArrayList<String>();
+		populateItemTypes();
+		populateAnimateEntityTypes();
+		Room newRoom = new Room();
+		for(int i = 0; i < 3; i++)
+		{
+			int iPicker = (int) (Math.random()*10);
+			newRoom.addInanimateEntity(ItemFactory.create(itemTypes.get(iPicker)));
+		}
+		for(int i = 0; i < 2; i++)
+		{
+			int iPicker = (int)(Math.random()*5);
+			try {
+				newRoom.addAnimateEntity(AnimateEntityFactory.create(animateEntityTypes.get(iPicker)));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return newRoom;
+	}
+
+	
+	public static void linkToRoom(Room roomToConnectTo, Room roomLastConnected)
+	{
+		roomLastConnected.getConnectedRooms().add(0, roomToConnectTo);
+	}
+	
+	private static void populateItemTypes()
+	{
+		itemTypes.add("sword");
+		itemTypes.add("shield");
+		itemTypes.add("key");
+		itemTypes.add("leather boots");
+		itemTypes.add("leather helmet");
+		itemTypes.add("leather gloves");
+		itemTypes.add("magic staff");
+		itemTypes.add("magic ring");
+		itemTypes.add("magic amulet");
+		itemTypes.add("leather bracers");
+	}
+	
+	private static void populateAnimateEntityTypes()
+	{
+		animateEntityTypes.add("goblin");
+		animateEntityTypes.add("troll");
+		animateEntityTypes.add("trader");
+		animateEntityTypes.add("giant rat");
+		animateEntityTypes.add("giant spider");
+	}
+}

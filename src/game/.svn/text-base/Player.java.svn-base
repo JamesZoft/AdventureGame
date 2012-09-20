@@ -1,0 +1,137 @@
+package game;
+
+import java.util.ArrayList;
+
+public class Player extends AnimateEntity{
+	private Room currentRoom;
+
+	private int inventorySize;
+	private int weightCarrying;
+	private int gold;
+	
+	public Player()
+	{
+		gold = 0;
+		isAggressive = false;
+		move = 2;
+		inventory = new ArrayList<Item>();
+		weightCarrying = 0;
+		inventorySize = 20;
+		health = 10;
+		attack = 2;
+	}
+	public void addGold(int gold)
+	{
+		this.gold += gold;
+	}
+	
+	public void removeGold(int gold)
+	{
+		this.gold -= gold;
+	}
+	
+	public int getGold()
+	{
+		return gold;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public Entity getItemFromName(String name)
+	{
+		for(InanimateEntity e : currentRoom.getInanimateEntities())
+		{
+			if(name.equals(e.getName()))
+				return e;
+		}
+		for(AnimateEntity e : currentRoom.getAnimateEntities())
+		{
+			if(name.equals(e.getName()))
+				return e;
+		}
+		return null;
+	}
+	
+	public void pickUpItem(String itemName)
+	{
+		Item itemPicked = (Item)getItemFromName(itemName);
+		if(canPickupItem(itemPicked))
+		{
+			inventory.add(itemPicked);
+			currentRoom.removeInanimateEntity(itemPicked);
+			System.out.println("You picked up a " + itemPicked.getName() + "!");
+			health += itemPicked.getHealth();
+			attack += itemPicked.getAttack();
+			weightCarrying += itemPicked.getWeight();
+		}
+		else
+		{
+			System.out.println("You cannot pick up that item as it would over-encumber you. Upgrade your backpack, " +
+					"or alternatively you're trying to pick up something that's stupidly heavy and I now frown at you.");
+		}
+	}
+	
+	public int getWeightCarrying()
+	{
+		return weightCarrying;
+	}
+	public int getInventorySize()
+	{
+		return inventorySize;
+	}
+	
+	public void setInventorySize(int size)
+	{
+		inventorySize = size;
+	}
+	
+	public void addInventorySize(int size)
+	{
+		inventorySize += size;
+	}
+	
+	public void setCurrentRoom(Room room)
+	{
+		currentRoom = room;
+	}
+	
+	public boolean canPickupItem(Item itemPicked)
+	{
+		if((weightCarrying + itemPicked.getWeight()) > getInventorySize())
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public void addToInventory(Item x)
+	{
+		inventory.add(x);
+	}
+	
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
+	@Override
+	public void attack(AnimateEntity e) {
+		e.attacked(this.attack);
+		System.out.println("You damaged the " + e.getName() + " for " + attack + " damage!");		
+	}
+
+	@Override
+	public void attacked(int attack) {
+		health -= attack;
+		
+	}
+
+}
